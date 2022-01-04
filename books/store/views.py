@@ -13,6 +13,10 @@ class BookViewSet(ModelViewSet):
     serializer_class = BookSerializer
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     permission_classes = [IsAuthenticated]
-    filter_fields =['price']
+    filter_fields = ['price']
     search_fields = ['name', 'author_name']
     ordering_fields = ['price', 'id']
+
+
+def auth(request):
+    return render(request, 'oauth.html')
