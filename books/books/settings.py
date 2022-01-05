@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    "debug_toolbar",
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'store.apps.StoreConfig',
@@ -48,6 +49,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'debug_toolbar_force.middleware.ForceDebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'books.urls'
@@ -142,3 +145,6 @@ AUTHENTICATION_BACKENDS = (
 
 SOCIAL_AUTH_GITHUB_KEY = '6982d4d8502f1fd1dac6'
 SOCIAL_AUTH_GITHUB_SECRET = '30fdfc0e3a7118503a1ef8422de3304b96171089'
+
+INTERNAL_IPS = [
+    "127.0.0.1"]
