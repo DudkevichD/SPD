@@ -19,15 +19,16 @@ class BoolSerializerTestCase(TestCase):
 
         UserBookRelations.objects.create(user=user_1, book=book_1, like=True, rate=5)
         UserBookRelations.objects.create(user=user_2, book=book_1, like=True, rate=5)
-        UserBookRelations.objects.create(user=user_3, book=book_1, like=True, rate=5)
+        user_book_3 = UserBookRelations.objects.create(user=user_3, book=book_1, like=True)
+        user_book_3.rate = 5
+        user_book_3.save()
 
         UserBookRelations.objects.create(user=user_1, book=book_2, like=False, rate=3)
         UserBookRelations.objects.create(user=user_2, book=book_2, like=False, rate=3)
         UserBookRelations.objects.create(user=user_3, book=book_2, like=False)
 
         books = Book.objects.all().annotate(
-            annotated_likes=Count(Case(When(userbookrelations__like=True, then=1))),
-            rating=Avg('userbookrelations__rate')).order_by('id')
+            annotated_likes=Count(Case(When(userbookrelations__like=True, then=1)))).order_by('id')
 
         data = BookSerializer(books, many=True).data
         expected_data = [
